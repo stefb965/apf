@@ -410,7 +410,13 @@ apf.AmlWindow = function(struct, tagName){
 
             this.state = this.state.split("|").remove("closed").join("|");
 
+            var _self = this;
+            this.$ext.style.opacity = 0;
             this.$ext.style.display = ""; //Some form of inheritance detection
+            move(this.$ext).scale(0.2).duration("0.0s").end(function() {
+                _self.$ext.style.opacity = 0.3;
+                move(_self.$ext).scale(1).set("opacity", 1).duration("0.23s").end();
+            });
 
             //if (this.modal) 
                 //this.$ext.style.position = "fixed";
