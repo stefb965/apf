@@ -421,9 +421,7 @@ apf.http = function(){
                     + apf.crypto.Base64.encode(options.username + ":" + options.password))
             }
 
-            //@todo OPERA ERROR's here... on retry [is this still applicable?]
-            if (!requestedWithParam)
-                setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
             if (!options.headers || !options.headers["Content-type"])
                 setRequestHeader("Content-type", options.contentType || this.contentType
