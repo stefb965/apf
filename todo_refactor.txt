@@ -1,0 +1,28 @@
+
+TODO APF Refactor for use in Cloud9 IDE only:
+------------------------------------------------------
+
+Databinding/Propertybinding should never be bidirectional
+    Implications:
+    - Need to add the reciprocal binds in Cloud9 UI
+
+IFDEF should be used for platform support NOT modularity
+
+It should be easy to add non-apf widgets to the focus handler
+
+It should be easy to use the property binding semantics to casual js objects
+
+
+
+Phase 2
+-------------------------
+
+Models should work on JSON data
+
+Widgets should operate on a virtual viewport
+
+Databinding has too rigid requirements of the widget
+
+The event system is not modular enough
+
+The focus management is a mess
