@@ -12,6 +12,13 @@ It should be easy to add non-apf widgets to the focus handler
 
 It should be easy to use the property binding semantics to casual js objects
 
+Error reporting should be fixed and no single point of failure
+
+Simplify data flows (data.js?)
+
+Simplify layout.js
+
+Remove queuing, its overly complex.
 
 
 Phase 2
