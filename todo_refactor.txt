@@ -18,8 +18,38 @@ Simplify data flows (data.js?)
 
 Simplify layout.js
 
+Simplify the elements:
+    - Split complex elements in multiple simple ones
+    - Remove features that are hardly used
+    - Move specialty features to modules
+
+Make sure all attributes that take IDs, also take REFs
+
 Remove queuing, its overly complex.
 
+Remove all element aliasses
+
+Refactor actions to no longer be declarative. The actiontracker should simply 
+provide an API to help execute and undo something if required.
+
+Refactor binding rules to only be via attributes
+    - Remove all binding elements except for those that should generate markup
+    - Move binding column to just be column
+    - Move dragdrop to be fully event based
+    - etc
+
+Deprecate AUTH. This should just be an event on the APP object
+
+Deprecate the state element
+
+Deprecate remote databinding
+    Implications:
+    - Need to use events instead for settings sync.
+    Settings should have its own tree based API
+
+Deprecate Teleport
+
+Deprecate Defaults
 
 Phase 2
 -------------------------

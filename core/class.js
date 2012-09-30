@@ -318,7 +318,7 @@ apf.Class.prototype = new (function(){
      *                                   is used to calculate a new value.
      * @private
      */
-    this.$bindProperty = function(myProp, bObject, bProp, fParsed, bRecip){
+    this.$bindProperty = function(myProp, bObject, bProp, fParsed){
         if (!fParsed)
             return bObject.$handlePropSet(bProp, this[myProp]);
 
@@ -377,32 +377,6 @@ apf.Class.prototype = new (function(){
 
             isBeingCalled = false;
         });
-
-        //Bi-directional property binding
-        if (bRecip) {
-            eventName = PROP + bProp;
-            var _self = this;
-            // add bidirectional binding to funcHandlers for visualconnect
-            //#ifdef __WITH_CONTENTEDITABLE
-            if (!this.$funcHandlers[bProp])
-                this.$funcHandlers[bProp] = [];
-
-            this.$funcHandlers[bProp].push({
-                amlNode : bObject,
-                prop    : bProp
-            });
-            //#endif
-
-            (bObject.$eventsStack[eventName] || (bObject.$eventsStack[eventName] = [])).push(
-                eFunc.recip = function(){
-                    if (isBeingCalled) //Prevent circular refs
-                        return;
-
-                    isBeingCalled = true;
-                    _self.setProperty(myProp, bObject[bProp], false, false, 10);//e.initial ? 0 :
-                    isBeingCalled = false;
-                });
-        };
 
         //eFunc({initial: true});
 
@@ -573,15 +547,7 @@ apf.Class.prototype = new (function(){
             this.$funcHandlers[prop].push(last = {
                 amlNode : node,
                 prop    : bProp,
-                handler : node.$bindProperty(bProp, this, prop, fParsed,
-                    //@todo check if it breaks something. I removed
-                    // "&& exclNr != 3" from the expression to enable two way
-                    // binding of selections
-                    fParsed.type == 4 && SEL.indexOf(prop) == -1) /*,
-                bidir   :
-                  && this.$bindProperty(prop, node, bProp, function(){
-                    return _self[prop];
-                  })*/
+                handler : node.$bindProperty(bProp, this, prop, fParsed)
             });
 
             found = true;
