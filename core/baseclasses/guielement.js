@@ -139,8 +139,8 @@ apf.GuiElement = function(){
     this.$focussable = apf.KEYBOARD_MOUSE; // Each GUINODE can get the focus by default
     this.visible     = 2; //default value;
     
-    this.minwidth    = 1;
-    this.minheight   = 1;
+    this.minwidth    = 0;
+    this.minheight   = 0;
     
     /*this.minwidth   = 5;
     this.minheight  = 5;
@@ -461,17 +461,23 @@ apf.GuiElement = function(){
 
             //--#ifdef __WITH_CONTENTEDITABLE
             //@todo slow??
-            var diff = apf.getDiff(this.$ext);
-            this.$ext.style.minWidth = Math.max(0, this.minwidth - diff[0]) + "px";
-            this.$ext.style.minHeight = Math.max(0, this.minheight - diff[1]) + "px";
-            this.$ext.style.maxWidth = Math.max(0, this.maxwidth - diff[0]) + "px";
-            this.$ext.style.maxHeight = Math.max(0, this.maxheight - diff[1]) + "px";
-            
-            if (this.$altExt && apf.isGecko) {
-                this.$altExt.style.minHeight = this.$ext.style.minHeight;
-                this.$altExt.style.maxHeight = this.$ext.style.maxHeight;
-                this.$altExt.style.minWidth = this.$ext.style.minWidth;
-                this.$altExt.style.maxWidth = this.$ext.style.maxWidth;
+            if (this.minwidth || this.minheight || this.maxwidth != 10000 || this.maxheight != 10000) {
+                var diff = apf.getDiff(this.$ext);
+                if (this.minwidth)
+                    this.$ext.style.minWidth = Math.max(0, this.minwidth - diff[0]) + "px";
+                if (this.minheight)
+                    this.$ext.style.minHeight = Math.max(0, this.minheight - diff[1]) + "px";
+                if (this.maxwidth != 10000)
+                    this.$ext.style.maxWidth = Math.max(0, this.maxwidth - diff[0]) + "px";
+                if (this.maxheight != 10000)
+                    this.$ext.style.maxHeight = Math.max(0, this.maxheight - diff[1]) + "px";
+
+                if (this.$altExt && apf.isGecko) {
+                    this.$altExt.style.minHeight = this.$ext.style.minHeight;
+                    this.$altExt.style.maxHeight = this.$ext.style.maxHeight;
+                    this.$altExt.style.minWidth = this.$ext.style.minWidth;
+                    this.$altExt.style.maxWidth = this.$ext.style.maxWidth;
+                }
             }
             //--#endif
         }
